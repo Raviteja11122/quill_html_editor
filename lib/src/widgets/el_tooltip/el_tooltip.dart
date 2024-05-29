@@ -97,6 +97,11 @@ class ElTooltipState extends State<ElTooltip> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    if(_overlayEntryHidden != null) {
+      _overlayEntryHidden?.remove();
+      _overlayEntryHidden = null;
+    }
+    hideOverlay();
     super.dispose();
   }
 
@@ -115,7 +120,7 @@ class ElTooltipState extends State<ElTooltip> with WidgetsBindingObserver {
   ElementBox get _triggerBox => _getTriggerSize();
 
   /// Measures the hidden tooltip after it's loaded with _loadHiddenOverlay(_)
-  void _getHiddenOverlaySize(context) {
+  /*void _getHiddenOverlaySize(context) {
     RenderBox box = _widgetKey.currentContext?.findRenderObject() as RenderBox;
     if (mounted) {
       setState(() {
@@ -125,6 +130,22 @@ class ElTooltipState extends State<ElTooltip> with WidgetsBindingObserver {
         );
         _overlayEntryHidden?.remove();
       });
+    }
+  }*/
+
+  void _getHiddenOverlaySize(context) {
+    RenderBox box = _widgetKey.currentContext?.findRenderObject() as RenderBox;
+    if (mounted) {
+      setState(() {
+        _overlayBox = ElementBox(
+          w: box.size.width,
+          h: box.size.height,
+        );
+      });
+    }
+    if(_overlayEntryHidden != null) {
+      _overlayEntryHidden?.remove();
+      _overlayEntryHidden = null;
     }
   }
 

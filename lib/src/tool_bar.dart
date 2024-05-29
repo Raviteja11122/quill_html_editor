@@ -941,7 +941,9 @@ class ToolBarState extends State<ToolBar> {
           _toolbarList[i] = _toolbarList[i].copyWith(isActive: true);
           widget.controller
               .setFormat(format: 'color', value: _formatMap['color']);
-          setState(() {});
+          if(mounted) {
+            setState(() {});
+          }
           if (_fontColorKey.currentState != null) {
             _fontColorKey.currentState!.hideOverlay();
           }
